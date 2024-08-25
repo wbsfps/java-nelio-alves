@@ -1,7 +1,6 @@
 package secao10.main;
 
 import secao10.entities.Product;
-
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
