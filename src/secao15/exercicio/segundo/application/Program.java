@@ -1,6 +1,6 @@
-package secao15.exercicio.primeiro.application;
+package secao15.exercicio.segundo.application;
 
-import secao15.exercicio.primeiro.model.entities.Reservation;
+import secao15.exercicio.segundo.model.entities.Reservation;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -35,13 +35,11 @@ public class Program {
             System.out.println("Check-out date: ");
             checkOut = sc.nextLine();
 
-            LocalDate now = LocalDate.now();
-            if (newCheckIn.isBefore(now) || newCheckOut.isBefore(now)) {
-                System.out.println("Error in reservation: Reservation dates for update must be future dates");
-            } else if (!newCheckOut.isAfter(newCheckIn)) {
-                System.out.println("Error in reservation: Check-out date must be after check-in date");
+            String error = reservation.updateDates(LocalDate.parse(checkIn, formatter), LocalDate.parse(checkOut, formatter));
+
+            if (error != null) {
+                System.out.println("Error in reservation: " + error);
             } else {
-                reservation.updateDates(LocalDate.parse(checkIn, formatter), LocalDate.parse(checkOut, formatter));
                 System.out.println(reservation);
             }
         }
