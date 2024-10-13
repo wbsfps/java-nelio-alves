@@ -5,7 +5,6 @@ import secao15.exercicio.terceiro.model.exceptions.DomainException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Program {
