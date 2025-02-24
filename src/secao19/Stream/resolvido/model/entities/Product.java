@@ -1,4 +1,4 @@
-package secao19.Stream.fixacao.model.entities;
+package secao19.Stream.resolvido.model.entities;
 
 public class Product {
     private String name;

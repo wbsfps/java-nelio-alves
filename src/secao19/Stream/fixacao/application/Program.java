@@ -1,12 +1,12 @@
 package secao19.Stream.fixacao.application;
 
-import secao19.Stream.fixacao.model.entities.Product;
+import secao19.Stream.fixacao.model.entities.Employee;
+import secao19.Stream.resolvido.model.entities.Product;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
-import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
 public class Program {
@@ -17,31 +17,34 @@ public class Program {
         System.out.println("Enter full file path: ");
         String path = sc.nextLine();
 
+        System.out.println("Enter a salary");
+        double salary = sc.nextDouble();
+
+        System.out.println("Email of people whose salary is more than: " + salary);
+
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            List<Product> products = new ArrayList<>();
+            List<Employee> employees = new ArrayList<>();
 
             String line = br.readLine();
 
             while (line != null) {
                 String[] fields = line.split(",");
-                products.add(new Product(fields[0], Double.parseDouble(fields[1])));
+                employees.add(new Employee(fields[0], fields[1], Double.parseDouble(fields[2])));
                 line = br.readLine();
             }
 
-            double avg = products.stream()
-                    .map(p -> p.getPrice())
-                    .reduce(0.0, (x, y) -> x + y) / products.size();
+        List<String> emails = employees.stream()
+                .filter(employee -> employee.getSalary() > salary)
+                .map(employee -> employee.getEmail()).collect(Collectors.toList());
+        emails.forEach(System.out::println);
 
-            System.out.println("Average price: " + avg);
+        double sumOfSalarys = employees.stream()
+                .filter(employee -> employee.getName().startsWith("B"))
+                .map(employee -> employee.getSalary())
+                .reduce(0.0, (x, y) -> x + y);
+        System.out.println("Sum of salary of people whose name starts with 'B': " + sumOfSalarys);
 
-            Comparator<String> comparator = (p1, p2) -> p1.toUpperCase().compareTo(p2.toUpperCase());
 
-            List<String> names = products.stream()
-                    .filter(product -> product.getPrice() < avg)
-                    .map(product -> product.getName())
-                    .sorted(comparator.reversed()).collect(Collectors.toList());
-
-            names.forEach(System.out::println);
 
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
