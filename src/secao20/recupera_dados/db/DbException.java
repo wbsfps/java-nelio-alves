@@ -1,4 +1,4 @@
-package secao20.primeira_conexao_com_o_jdbc.db;
+package secao20.recupera_dados.db;
 
 public class DbException extends RuntimeException {
     public DbException(String message) {
